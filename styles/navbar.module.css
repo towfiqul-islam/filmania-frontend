@@ -1,0 +1,61 @@
+.nav_wrapper {
+    background-color: gray;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.search_input {
+    display: flex;
+}
+
+.search_input 
+
+
+
+.search_icon {
+    display: block;
+    background-color: #fff;
+    padding: 3.5px;
+    border-radius: 4px 0 0 4px;
+}
+
+.search_input input[type=text] {
+    padding: 8px 4px;
+    border: none;
+    border-radius: 0 4px 4px 0;
+}
+
+.account_icon {
+    background-color: #fff;
+    padding: 3.5px;
+    border-radius: 50%;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.profile_dropdown_wrapper {
+    position: relative;
+}
+
+.profile_dropdown {
+    position: absolute;
+    top: 0;
+    margin-top: 40px;
+    margin-right: 10px;
+    right: 0;
+    list-style: none;
+    background-color: aquamarine;
+    padding: 10px 0;
+}
+
+.profile_dropdown li {
+    padding: 8px 20px;
+    cursor: pointer;
+}
+
+.profile_dropdown li:hover {
+    background-color: #fff
+}
