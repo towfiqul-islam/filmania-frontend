@@ -10,6 +10,7 @@ type User = {
 export const loginUser = async (user: User) => {
   try {
     const res = await axios.post('/auth/signin', user);
+    localStorage.setItem('userId', res.data.id)
     return res
   } catch (err) {
     console.error('Something went wrong', err);
