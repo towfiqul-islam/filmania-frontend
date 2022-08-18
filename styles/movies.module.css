@@ -30,3 +30,14 @@
 .search_top_bar {
     padding: 20px 0;
 }
+
+.movie_filters {
+    margin: 0 auto 20px auto;
+}
+
+.movie_filters button {
+    padding: 4px 12px;
+    margin-right: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+}

@@ -15,9 +15,14 @@ export const searchMovie = async (queryString: string) => {
   }
 };
 
-export const getAllMovies = async () => {
+export const getAllMovies = async (filters: any) => {
   try {
-    const res = await axios_instance.get('/movies');
+    const { type = '', userId = '', limit = 10, skip = 0 } = filters;
+    const res = await axios_instance.get(
+      `/movies?limit=${limit}&skip=${skip}&type=${type && type}&userId=${
+        userId && parseInt(userId)
+      }`
+    );
     return res;
   } catch (err) {
     console.error('something went wrong', err);

@@ -8,6 +8,7 @@ import Navbar from '../../components/Navbar';
 import SearchTopBar from '../../components/SearchTopBar';
 import { initiateLoadMore } from '../../helper/utils';
 import { getAllMovies } from '../../services/movie.services';
+import { selectFilters } from '../../store/filterReducer';
 import {
   selectSearchKey,
   selectSearchResults,
@@ -22,17 +23,22 @@ const Movies: NextPage = () => {
   const searchKey = useSelector(selectSearchKey);
   const searchResults = useSelector(selectSearchResults);
 
+  const filters = useSelector(selectFilters)
+
+  console.log(filters)
+  
+
   const loadMore = () => {};
 
   const getMovies = async () => {
-    const res = await getAllMovies();
+    const res = await getAllMovies(filters);
     setMovies(res?.data)
   }
 
   useEffect(() => {
     getMovies()
     // initiateLoadMore('movies_list', loadMore);
-  }, []);
+  }, [filters]);
   return (
     <>
       <div className={styles.container}>
