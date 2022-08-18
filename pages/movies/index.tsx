@@ -5,31 +5,56 @@ import InfiniteLoader from '../../components/icons/InfiniteLoader';
 import MovieCard from '../../components/MovieCard';
 import MovieTopBar from '../../components/MovieTopBar';
 import Navbar from '../../components/Navbar';
+import SearchTopBar from '../../components/SearchTopBar';
 import { initiateLoadMore } from '../../helper/utils';
-import { selectSearchResults } from '../../store/searchReducer';
+import { getAllMovies } from '../../services/movie.services';
+import {
+  selectSearchKey,
+  selectSearchResults,
+} from '../../store/searchReducer';
 import styles from '../../styles/movies.module.css';
-import { data } from './data';
+import { Movie } from '../../types/Movie';
 
 const Movies: NextPage = () => {
-  const [movies, setMovies] = useState(data);
+  const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const searchKey = useSelector(selectSearchKey);
   const searchResults = useSelector(selectSearchResults);
 
   const loadMore = () => {};
 
+  const getMovies = async () => {
+    const res = await getAllMovies();
+    setMovies(res?.data)
+  }
+
   useEffect(() => {
-    initiateLoadMore('movies_list', loadMore);
-    if (searchResults?.length) setMovies(searchResults);
-  }, [searchResults?.length > 0]);
+    getMovies()
+    // initiateLoadMore('movies_list', loadMore);
+  }, []);
   return (
     <>
       <div className={styles.container}>
         <Navbar />
+
+        {searchKey && searchResults && searchResults.length > 0 && (
+          <SearchTopBar />
+        )}
+
+        <div className={styles.movies_wrapper}>
+          {searchResults &&
+            searchResults.length > 0 &&
+            searchResults.map((movie: Movie) => (
+              <MovieCard {...movie} key={movie.imdbID} />
+            ))}
+        </div>
+
         <MovieTopBar />
+
         <div id='movies_list' className={styles.movies_wrapper}>
-          {movies &&
-            movies.map((movie, index) => <MovieCard {...movie} key={index} />)}
+          {movies && movies.length > 0 &&
+            movies.map((movie: Movie) => <MovieCard {...movie} key={movie.id} />)}
         </div>
         {loading && <InfiniteLoader />}
       </div>

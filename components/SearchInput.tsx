@@ -1,27 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SearchIcon from './icons/SearchIcon';
 import styles from '../styles/navbar.module.css';
 import { searchMovie } from '../services/movie.services';
-import { useDispatch } from 'react-redux';
-import { setSearchResults } from '../store/searchReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setSearchResults,
+  setSearchKey,
+  selectSearchKey,
+} from '../store/searchReducer';
 import { prepareSearchResults } from '../helper/utils';
 
 const SearchInput = () => {
-  const [search, setSearch] = useState('');
+  const search = useSelector(selectSearchKey);
   const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchKey = e.target.value;
-    setSearch(searchKey);
+    const searchKey = e.target.value || '';
+    dispatch(setSearchKey(searchKey));
 
     if (searchKey.length >= 3) {
       setTimeout(async () => {
         const res = await searchMovie(searchKey);
-        const movies = res?.data.Search;
-        const preparedSearchResults = prepareSearchResults(movies);
+        const results = res?.data.Search;
+        const preparedSearchResults = prepareSearchResults(results);
         const searchResults = setSearchResults(preparedSearchResults);
         dispatch(searchResults);
       }, 500);
+    } else {
+      dispatch(setSearchResults([]));
     }
   };
   return (
