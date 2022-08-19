@@ -5,4 +5,5 @@ export type Movie = {
     type: string;
     imdbID: string;
     poster: string;
+    userId?: number;
 }

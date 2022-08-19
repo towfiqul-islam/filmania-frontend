@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import axios_instance from '../helper/axios';
+import { Movie } from '../types/Movie';
 
 const OMDB_API = 'http://www.omdbapi.com';
 const OMDB_API_KEY = '85999445'; // Hide this
@@ -34,3 +35,13 @@ export const getAllMovies = async (params: any) => {
     console.error('something went wrong', err);
   }
 };
+
+export const addMovie = async (movie: Movie) => {
+  try {
+    const res = await axios_instance.post('/movies', movie)
+    return res
+  } catch (err) {
+    console.error(err)
+  }
+  
+}
