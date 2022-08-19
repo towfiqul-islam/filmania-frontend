@@ -26,11 +26,11 @@ const Movies: NextPage = () => {
 
   const filters = useSelector(selectFilters)
 
-  console.log(filters)
+  // console.log(filters)
 
   const sortBy = useSelector(selectSortBy)
 
-  console.log(sortBy)
+  // console.log(sortBy)
   
 
   const loadMore = () => {};
