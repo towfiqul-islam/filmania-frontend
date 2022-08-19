@@ -13,6 +13,7 @@ import {
   selectSearchKey,
   selectSearchResults,
 } from '../../store/searchReducer';
+import { selectSortBy } from '../../store/sortReducer';
 import styles from '../../styles/movies.module.css';
 import { Movie } from '../../types/Movie';
 
@@ -26,19 +27,27 @@ const Movies: NextPage = () => {
   const filters = useSelector(selectFilters)
 
   console.log(filters)
+
+  const sortBy = useSelector(selectSortBy)
+
+  console.log(sortBy)
   
 
   const loadMore = () => {};
 
   const getMovies = async () => {
-    const res = await getAllMovies(filters);
+    const params = {
+      ...filters,
+      sortBy
+    }
+    const res = await getAllMovies(params);
     setMovies(res?.data)
   }
 
   useEffect(() => {
     getMovies()
     // initiateLoadMore('movies_list', loadMore);
-  }, [filters]);
+  }, [filters, sortBy]);
   return (
     <>
       <div className={styles.container}>

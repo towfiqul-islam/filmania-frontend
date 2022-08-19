@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import filterReducer from './filterReducer'
 import searchReducer from './searchReducer'
+import sortReducer from './sortReducer'
 
 export const store = configureStore({
   reducer: {
     search: searchReducer,
-    filter: filterReducer
+    filter: filterReducer,
+    sort: sortReducer
   },
 })
 

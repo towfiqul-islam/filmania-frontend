@@ -2,7 +2,7 @@ import Axios from 'axios';
 import axios_instance from '../helper/axios';
 
 const OMDB_API = 'http://www.omdbapi.com';
-const OMDB_API_KEY = '85999445';
+const OMDB_API_KEY = '85999445'; // Hide this
 
 export const searchMovie = async (queryString: string) => {
   try {
@@ -15,13 +15,19 @@ export const searchMovie = async (queryString: string) => {
   }
 };
 
-export const getAllMovies = async (filters: any) => {
+export const getAllMovies = async (params: any) => {
   try {
-    const { type = '', userId = '', limit = 10, skip = 0 } = filters;
-    const res = await axios_instance.get(
+    const {
+      type = '',
+      userId = '',
+      limit = 10,
+      skip = 0,
+      sortBy = 'title_asc',
+    } = params;
+    const res = await axios_instance.get( // Refactor this
       `/movies?limit=${limit}&skip=${skip}&type=${type && type}&userId=${
         userId && parseInt(userId)
-      }`
+      }&sortBy=${sortBy}`
     );
     return res;
   } catch (err) {
