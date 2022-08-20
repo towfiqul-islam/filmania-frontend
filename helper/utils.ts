@@ -1,10 +1,3 @@
-interface Movie {
-  Title: string;
-  Year: string;
-  imdbID: string;
-  Type: string;
-  Poster: string;
-}
 
 export const initiateLoadMore = (id: string, loadMore: Function): void => {
   document.addEventListener('scroll', () => {
@@ -16,12 +9,3 @@ export const initiateLoadMore = (id: string, loadMore: Function): void => {
   });
 };
 
-export const prepareSearchResults = (movies?: [Movie]) => {
-  return movies?.map((movie?: Movie) => ({
-    title: movie?.Title,
-    year: movie?.Year,
-    imdbID: movie?.imdbID,
-    type: movie?.Type,
-    poster: movie?.Poster,
-  }));
-};

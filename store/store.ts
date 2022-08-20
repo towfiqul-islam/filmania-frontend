@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import filterReducer from './filterReducer'
+import movieReducer from './movieReducer'
 import searchReducer from './searchReducer'
 import sortReducer from './sortReducer'
 
@@ -7,7 +8,8 @@ export const store = configureStore({
   reducer: {
     search: searchReducer,
     filter: filterReducer,
-    sort: sortReducer
+    sort: sortReducer,
+    movie: movieReducer
   },
 })
 

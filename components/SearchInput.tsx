@@ -1,17 +1,19 @@
 import React from 'react';
 import SearchIcon from './icons/SearchIcon';
 import styles from '../styles/navbar.module.css';
-import { searchMovie } from '../services/movie.services';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setSearchResults,
   setSearchKey,
   selectSearchKey,
 } from '../store/searchReducer';
-import { prepareSearchResults } from '../helper/utils';
+import { selectFavorites } from '../store/movieReducer';
+import { searchMovie } from '../services/movies/api';
+import { filterSearchResults, prepareSearchResults } from '../services/movies/helper';
 
 const SearchInput = () => {
   const search = useSelector(selectSearchKey);
+  const favorites = useSelector(selectFavorites);
   const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +25,8 @@ const SearchInput = () => {
         const res = await searchMovie(searchKey);
         const results = res?.data.Search;
         const preparedSearchResults = prepareSearchResults(results);
-        const searchResults = setSearchResults(preparedSearchResults);
+        const filteredSearchResults = filterSearchResults(preparedSearchResults, favorites);
+        const searchResults = setSearchResults(filteredSearchResults);
         dispatch(searchResults);
       }, 500);
     } else {

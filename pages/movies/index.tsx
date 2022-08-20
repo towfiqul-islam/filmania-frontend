@@ -1,14 +1,21 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import InfiniteLoader from '../../components/icons/InfiniteLoader';
 import MovieCard from '../../components/MovieCard';
 import MovieTopBar from '../../components/MovieTopBar';
 import Navbar from '../../components/Navbar';
 import SearchTopBar from '../../components/SearchTopBar';
-import { initiateLoadMore } from '../../helper/utils';
-import { getAllMovies } from '../../services/movie.services';
+import { getAllMovies } from '../../services/movies/api';
+import { getUniqueMovies } from '../../services/movies/helper';
+
+
 import { selectFilters } from '../../store/filterReducer';
+import {
+  selectMovies,
+  setFavorites,
+  setMovies,
+} from '../../store/movieReducer';
 import {
   selectSearchKey,
   selectSearchResults,
@@ -18,34 +25,39 @@ import styles from '../../styles/movies.module.css';
 import { Movie } from '../../types/Movie';
 
 const Movies: NextPage = () => {
-  const [movies, setMovies] = useState([]);
+  const dispatch = useDispatch();
+  const movies = useSelector(selectMovies);
+  // const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const searchKey = useSelector(selectSearchKey);
   const searchResults = useSelector(selectSearchResults);
 
-  const filters = useSelector(selectFilters)
+  const filters = useSelector(selectFilters);
 
   // console.log(filters)
 
-  const sortBy = useSelector(selectSortBy)
+  const sortBy = useSelector(selectSortBy);
 
   // console.log(sortBy)
-  
 
   const loadMore = () => {};
 
   const getMovies = async () => {
     const params = {
       ...filters,
-      sortBy
-    }
+      sortBy,
+    };
     const res = await getAllMovies(params);
-    setMovies(res?.data)
-  }
+
+    dispatch(setMovies(res?.data));
+    dispatch(setFavorites());
+    const uniqueMovies = getUniqueMovies(res?.data);
+    dispatch(setMovies(uniqueMovies));
+  };
 
   useEffect(() => {
-    getMovies()
+    getMovies();
     // initiateLoadMore('movies_list', loadMore);
   }, [filters, sortBy]);
   return (
@@ -68,8 +80,11 @@ const Movies: NextPage = () => {
         <MovieTopBar />
 
         <div id='movies_list' className={styles.movies_wrapper}>
-          {movies && movies.length > 0 &&
-            movies.map((movie: Movie) => <MovieCard {...movie} key={movie.id} />)}
+          {movies &&
+            movies.length > 0 &&
+            movies.map((movie: Movie) => (
+              <MovieCard {...movie} key={movie.id} />
+            ))}
         </div>
         {loading && <InfiniteLoader />}
       </div>

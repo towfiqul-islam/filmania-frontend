@@ -1,7 +1,8 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { loginUser } from '../../services/auth.services';
+import { loginUser } from '../../services/auth/api';
+
 import styles from '../../styles/forms.module.css';
 
 const Login: NextPage = () => {

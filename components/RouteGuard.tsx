@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { getCurrentUser } from '../services/auth.services';
+import { getCurrentUser } from '../services/auth/api';
 
 export { RouteGuard };
 

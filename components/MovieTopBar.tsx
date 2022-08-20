@@ -7,13 +7,13 @@ import styles from '../styles/movies.module.css';
 
 const MovieTopBar = () => {
   const userId = localStorage.getItem('userId') || '';
-  const filters = ['tv', 'movie', userId];
+  const filters = ['series', 'movie', userId];
   const dispatch = useDispatch();
   const selectedFilters = useSelector(selectFilters)
 
   const isFilterSelected = (filter: string) => Object.values(selectedFilters).includes(filter);
 
-  console.log({selectedFilters: Object.values(selectedFilters)});
+  // console.log({selectedFilters: Object.values(selectedFilters)});
 
   const handleSort = (e: any) => {
     dispatch(setSortBy(e.target.value));
@@ -38,7 +38,7 @@ const MovieTopBar = () => {
   return (
     <>
       <div className={styles.movies_top_bar}>
-        <h3>Movies & TVs</h3>
+        <h3>Movies & Series</h3>
 
         <div>
           <label htmlFor='sort_by'>Sort by: </label>
