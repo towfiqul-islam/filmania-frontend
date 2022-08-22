@@ -9,7 +9,10 @@ import {
 } from '../store/searchReducer';
 import { selectFavorites } from '../store/movieReducer';
 import { searchMovie } from '../services/movies/api';
-import { filterSearchResults, prepareSearchResults } from '../services/movies/helper';
+import {
+  filterSearchResults,
+  prepareSearchResults,
+} from '../services/movies/helper';
 
 const SearchInput = () => {
   const search = useSelector(selectSearchKey);
@@ -25,7 +28,10 @@ const SearchInput = () => {
         const res = await searchMovie(searchKey);
         const results = res?.data.Search;
         const preparedSearchResults = prepareSearchResults(results);
-        const filteredSearchResults = filterSearchResults(preparedSearchResults, favorites);
+        const filteredSearchResults = filterSearchResults(
+          preparedSearchResults,
+          favorites
+        );
         const searchResults = setSearchResults(filteredSearchResults);
         dispatch(searchResults);
       }, 500);
@@ -33,6 +39,7 @@ const SearchInput = () => {
       dispatch(setSearchResults([]));
     }
   };
+
   return (
     <>
       <div className={styles.search_input}>

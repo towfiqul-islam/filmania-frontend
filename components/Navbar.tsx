@@ -5,7 +5,7 @@ import Logo from './Logo';
 import ProfileDropdown from './ProfileDropdown';
 import SearchInput from './SearchInput';
 
-const Navbar = () => {
+const WrappedNavbar = () => {
   return (
     <>
       <div className={styles.nav_wrapper}>
@@ -16,5 +16,7 @@ const Navbar = () => {
     </>
   );
 };
+
+const Navbar = React.memo(WrappedNavbar)
 
 export default Navbar;

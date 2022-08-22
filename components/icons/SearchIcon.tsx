@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from '../../styles/navbar.module.css'
+import styles from '../../styles/navbar.module.css';
 
-const SearchIcon = () => {
+const WrappedSearchIcon = () => {
   return (
     <>
       <svg
@@ -18,5 +18,7 @@ const SearchIcon = () => {
     </>
   );
 };
+
+const SearchIcon = React.memo(WrappedSearchIcon);
 
 export default SearchIcon;

@@ -4,16 +4,16 @@ import { selectFilters, setFilters } from '../store/filterReducer';
 import { setSortBy } from '../store/sortReducer';
 import styles from '../styles/movies.module.css';
 
-
-const MovieTopBar = () => {
+const WrappedMovieTopBar = () => {
   const userId = localStorage.getItem('userId') || '';
   const filters = ['series', 'movie', userId];
   const dispatch = useDispatch();
-  const selectedFilters = useSelector(selectFilters)
+  const selectedFilters = useSelector(selectFilters);
 
-  const isFilterSelected = (filter: string) => Object.values(selectedFilters).includes(filter);
+  const isFilterSelected = (filter: string) =>
+    Object.values(selectedFilters).includes(filter);
 
-  // console.log({selectedFilters: Object.values(selectedFilters)});
+  // console.log({ selectedFilters: Object.values(selectedFilters) });
 
   const handleSort = (e: any) => {
     dispatch(setSortBy(e.target.value));
@@ -51,7 +51,11 @@ const MovieTopBar = () => {
       <div className={styles.movie_filters}>
         {filters.map((filter, index) => (
           <button
-            className={isFilterSelected(filter) ? styles.movie_filters_btn_selected : styles.movie_filters_btn}
+            className={
+              isFilterSelected(filter)
+                ? styles.movie_filters_btn_selected
+                : styles.movie_filters_btn
+            }
             onClick={() => handleFilters(filter)}
             key={index}
           >
@@ -67,5 +71,7 @@ const MovieTopBar = () => {
     </>
   );
 };
+
+const MovieTopBar = React.memo(WrappedMovieTopBar)
 
 export default MovieTopBar;
