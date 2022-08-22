@@ -47,15 +47,16 @@
     margin-right: 10px;
     right: 0;
     list-style: none;
-    background-color: aquamarine;
+    background-color: rgb(75, 75, 75);
     padding: 10px 0;
 }
 
 .profile_dropdown li {
     padding: 8px 20px;
     cursor: pointer;
+    color: white
 }
 
 .profile_dropdown li:hover {
-    background-color: #fff
+    background-color: #000
 }

@@ -1,6 +1,11 @@
 import React from 'react';
 
-const InfiniteLoader = () => {
+interface Props {
+  width?: string;
+  height?: string;
+}
+
+const Loader = ({width = '70px', height = '20px'}: Props) => {
   return (
     <>
       <svg
@@ -10,12 +15,12 @@ const InfiniteLoader = () => {
           display: 'block',
           shapeRendering: 'auto',
         }}
-        width='100px'
-        height='40px'
+        width={width}
+        height={height}
         viewBox='0 0 100 100'
         preserveAspectRatio='xMidYMid'
       >
-        <circle cx='84' cy='50' r='10' fill='#0a0a0a'>
+        <circle cx='84' cy='50' r='10' fill='#ffffff'>
           <animate
             attributeName='r'
             repeatCount='indefinite'
@@ -32,11 +37,11 @@ const InfiniteLoader = () => {
             dur='6.666666666666666s'
             calcMode='discrete'
             keyTimes='0;0.25;0.5;0.75;1'
-            values='#0a0a0a;#f9ae5c;#f50404;#28292f;#0a0a0a'
+            values='#fff;#fff;#fff;#fff;#fff'
             begin='0s'
           ></animate>
         </circle>
-        <circle cx='16' cy='50' r='10' fill='#0a0a0a'>
+        <circle cx='16' cy='50' r='10' fill='#fff'>
           <animate
             attributeName='r'
             repeatCount='indefinite'
@@ -58,7 +63,7 @@ const InfiniteLoader = () => {
             begin='0s'
           ></animate>
         </circle>
-        <circle cx='50' cy='50' r='10' fill='#28292f'>
+        <circle cx='50' cy='50' r='10' fill='#fff'>
           <animate
             attributeName='r'
             repeatCount='indefinite'
@@ -80,7 +85,7 @@ const InfiniteLoader = () => {
             begin='-1.6666666666666665s'
           ></animate>
         </circle>
-        <circle cx='84' cy='50' r='10' fill='#ff0808'>
+        <circle cx='84' cy='50' r='10' fill='#fff'>
           <animate
             attributeName='r'
             repeatCount='indefinite'
@@ -102,7 +107,7 @@ const InfiniteLoader = () => {
             begin='-3.333333333333333s'
           ></animate>
         </circle>
-        <circle cx='16' cy='50' r='10' fill='#f9ae5c'>
+        <circle cx='16' cy='50' r='10' fill='#fff'>
           <animate
             attributeName='r'
             repeatCount='indefinite'
@@ -129,4 +134,4 @@ const InfiniteLoader = () => {
   );
 };
 
-export default InfiniteLoader;
+export default Loader;

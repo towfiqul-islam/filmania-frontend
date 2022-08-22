@@ -34,3 +34,16 @@ export const getCurrentUser = async () => {
     }
   }
 };
+
+export const logout = async () => {
+  try {
+    const res = await axios.post('/auth/signout')
+    return res
+  } catch (err) {
+    console.error(err);
+    return {
+      message: 'Something went wrong',
+      status: 404
+    }
+  }
+}

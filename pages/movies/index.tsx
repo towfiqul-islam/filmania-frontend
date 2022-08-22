@@ -1,14 +1,13 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import InfiniteLoader from '../../components/icons/InfiniteLoader';
+import Loader from '../../components/icons/Loader';
 import MovieCard from '../../components/MovieCard';
 import MovieTopBar from '../../components/MovieTopBar';
 import Navbar from '../../components/Navbar';
 import SearchTopBar from '../../components/SearchTopBar';
 import { getAllMovies } from '../../services/movies/api';
 import { getUniqueMovies } from '../../services/movies/helper';
-
 
 import { selectFilters } from '../../store/filterReducer';
 import {
@@ -86,7 +85,7 @@ const Movies: NextPage = () => {
               <MovieCard {...movie} key={movie.id} />
             ))}
         </div>
-        {loading && <InfiniteLoader />}
+        {loading && <Loader />}
       </div>
     </>
   );
