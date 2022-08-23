@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import Loader from '../../components/icons/Loader';
@@ -72,6 +73,9 @@ const Login: NextPage = () => {
         <button type='submit'>
           {loading ? <Loader width='70px' height='20px' /> : 'Submit'}
         </button>
+        <p className='text-center mt-20'>
+          To register <Link href='/register'> click here</Link>
+        </p>
       </form>
     </div>
   );

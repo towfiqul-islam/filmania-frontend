@@ -1,8 +1,24 @@
 import axios from '../../helper/axios'
 
 type User = {
+  username?: string;
   email: string;
   password: string;
+};
+
+
+export const registerUser = async (user: User) => {
+  try {
+    const res = await axios.post('/auth/signup', user);
+    localStorage.setItem('userId', res.data.id)
+    return res
+  } catch (err) {
+    console.error('Something went wrong', err);
+    return {
+      message: 'Something went wrong',
+      status: 400
+    }
+  }
 };
 
 

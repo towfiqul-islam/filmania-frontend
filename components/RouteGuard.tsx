@@ -39,7 +39,7 @@ function RouteGuard({ children }: any) {
       setAuthorized(false);
       router.push({
         pathname: '/login',
-        query: { returnUrl: router.asPath },
+        query: { returnUrl: '/movies' },
       });
     } else {
       setAuthorized(true);

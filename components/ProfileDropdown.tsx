@@ -28,7 +28,6 @@ const ProfileDropdown = () => {
         </div>
         {open && (
           <ul className={styles.profile_dropdown}>
-            <li>Profile</li>
             <li onClick={handleLogout}>{loading ? <Loader /> : 'Logout'}</li>
           </ul>
         )}
