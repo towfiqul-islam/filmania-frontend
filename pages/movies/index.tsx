@@ -85,7 +85,7 @@ const Movies: NextPage = () => {
               <MovieCard {...movie} key={movie.id} />
             ))}
         </div>
-        {loading && <Loader />}
+        {loading && <Loader color='#000' />}
       </div>
     </>
   );

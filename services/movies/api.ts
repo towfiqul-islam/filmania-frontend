@@ -45,3 +45,12 @@ export const addMovie = async (movie: Movie) => {
   }
   
 }
+
+export const getMoviesCount = async () => {
+  try {
+    const res = await axios_instance.get('/movies/count')
+    return res
+  } catch (err) {
+    console.error(err)
+  }
+}

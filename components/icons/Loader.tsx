@@ -3,9 +3,10 @@ import React from 'react';
 interface Props {
   width?: string;
   height?: string;
+  color?: string;
 }
 
-const Loader = ({width = '70px', height = '20px'}: Props) => {
+const Loader = ({width = '70px', height = '20px', color = "#fff"}: Props) => {
   return (
     <>
       <svg
@@ -20,7 +21,7 @@ const Loader = ({width = '70px', height = '20px'}: Props) => {
         viewBox='0 0 100 100'
         preserveAspectRatio='xMidYMid'
       >
-        <circle cx='84' cy='50' r='10' fill='#ffffff'>
+        <circle cx='84' cy='50' r='10' fill={color}>
           <animate
             attributeName='r'
             repeatCount='indefinite'
@@ -37,11 +38,11 @@ const Loader = ({width = '70px', height = '20px'}: Props) => {
             dur='6.666666666666666s'
             calcMode='discrete'
             keyTimes='0;0.25;0.5;0.75;1'
-            values='#fff;#fff;#fff;#fff;#fff'
+            values={`${color};${color};${color};${color};${color}`}
             begin='0s'
           ></animate>
         </circle>
-        <circle cx='16' cy='50' r='10' fill='#fff'>
+        <circle cx='16' cy='50' r='10' fill={color}>
           <animate
             attributeName='r'
             repeatCount='indefinite'
@@ -63,7 +64,7 @@ const Loader = ({width = '70px', height = '20px'}: Props) => {
             begin='0s'
           ></animate>
         </circle>
-        <circle cx='50' cy='50' r='10' fill='#fff'>
+        <circle cx='50' cy='50' r='10' fill={color}>
           <animate
             attributeName='r'
             repeatCount='indefinite'
@@ -85,7 +86,7 @@ const Loader = ({width = '70px', height = '20px'}: Props) => {
             begin='-1.6666666666666665s'
           ></animate>
         </circle>
-        <circle cx='84' cy='50' r='10' fill='#fff'>
+        <circle cx='84' cy='50' r='10' fill={color}>
           <animate
             attributeName='r'
             repeatCount='indefinite'
@@ -107,7 +108,7 @@ const Loader = ({width = '70px', height = '20px'}: Props) => {
             begin='-3.333333333333333s'
           ></animate>
         </circle>
-        <circle cx='16' cy='50' r='10' fill='#fff'>
+        <circle cx='16' cy='50' r='10' fill={color}>
           <animate
             attributeName='r'
             repeatCount='indefinite'
