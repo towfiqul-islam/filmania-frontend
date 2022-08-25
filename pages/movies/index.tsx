@@ -1,3 +1,4 @@
+import InfiniteScroll from 'react-infinite-scroll-component';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,14 +7,19 @@ import MovieCard from '../../components/MovieCard';
 import MovieTopBar from '../../components/MovieTopBar';
 import Navbar from '../../components/Navbar';
 import SearchTopBar from '../../components/SearchTopBar';
-import { getAllMovies } from '../../services/movies/api';
+// import { initiateLoadMore } from '../../helper/utils';
+import { getAllMovies, getMoviesCount } from '../../services/movies/api';
 import { getUniqueMovies } from '../../services/movies/helper';
 
 import { selectFilters } from '../../store/filterReducer';
 import {
+  selectLimit,
   selectMovies,
+  selectSkip,
+  selectTotalMovies,
   setFavorites,
   setMovies,
+  setSkip,
 } from '../../store/movieReducer';
 import {
   selectSearchKey,
@@ -24,41 +30,73 @@ import styles from '../../styles/movies.module.css';
 import { Movie } from '../../types/Movie';
 
 const Movies: NextPage = () => {
+  const totalMovies = useSelector(selectTotalMovies);
   const dispatch = useDispatch();
   const movies = useSelector(selectMovies);
-  // const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const searchKey = useSelector(selectSearchKey);
   const searchResults = useSelector(selectSearchResults);
 
   const filters = useSelector(selectFilters);
-
-  // console.log(filters)
-
   const sortBy = useSelector(selectSortBy);
+  const limit = useSelector(selectLimit);
+  const skip = useSelector(selectSkip);
 
-  // console.log(sortBy)
+  const params: any = {
+    ...filters,
+    sortBy,
+    limit,
+    skip,
+  };
 
-  const loadMore = () => {};
+  const setFavoriteMovies = (data: any) => {
+    dispatch(setMovies(movies.concat(data)));
+    dispatch(setFavorites());
+  };
+
+  const setUniqueMoviesWithoutConcat = (data: any) => {
+    const uniqueMovies = getUniqueMovies(data);
+    dispatch(setMovies(uniqueMovies));
+  };
+
+  const setUniqueMoviesWithConcat = (data: any) => {
+    const uniqueMovies = getUniqueMovies(movies.concat(data));
+    dispatch(setMovies(uniqueMovies));
+  };
+
+  const afterDataFetchLogic = () => {
+    setLoading(false);
+    dispatch(setSkip(1));
+  };
+
+  const loadMore = async () => {
+    setLoading(true);
+
+    setTimeout(async () => {
+      const res = await getAllMovies(params);
+      setUniqueMoviesWithConcat(res?.data);
+
+      afterDataFetchLogic();
+    }, 2000);
+  };
 
   const getMovies = async () => {
-    const params = {
-      ...filters,
-      sortBy,
-    };
-    const res = await getAllMovies(params);
+    setLoading(true);
 
-    dispatch(setMovies(res?.data));
-    dispatch(setFavorites());
-    const uniqueMovies = getUniqueMovies(res?.data);
-    dispatch(setMovies(uniqueMovies));
+    setTimeout(async () => {
+      const res = await getAllMovies(params);
+
+      setFavoriteMovies(res?.data);
+      setUniqueMoviesWithoutConcat(res?.data);
+
+      afterDataFetchLogic();
+    }, 2000);
   };
 
   useEffect(() => {
     getMovies();
-    // initiateLoadMore('movies_list', loadMore);
-  }, [filters, sortBy]);
+  }, [filters, sortBy, totalMovies]);
   return (
     <>
       <div className={styles.container}>
@@ -78,14 +116,22 @@ const Movies: NextPage = () => {
 
         <MovieTopBar />
 
-        <div id='movies_list' className={styles.movies_wrapper}>
-          {movies &&
-            movies.length > 0 &&
-            movies.map((movie: Movie) => (
-              <MovieCard {...movie} key={movie.id} />
-            ))}
+        <div id='movies_list'>
+          <InfiniteScroll
+            dataLength={movies.length}
+            next={loadMore}
+            hasMore={movies.length < totalMovies}
+            loader={<Loader color='#000' />}
+            className={styles.movies_wrapper}
+          >
+            {movies &&
+              movies.length > 0 &&
+              movies.map((movie: Movie) => (
+                <MovieCard {...movie} key={movie.id} />
+              ))}
+          </InfiniteScroll>
         </div>
-        {loading && <Loader color='#000' />}
+        {/* {loading && <Loader color='#000' />} */}
       </div>
     </>
   );

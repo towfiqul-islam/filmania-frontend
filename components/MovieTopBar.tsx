@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getMoviesCount } from '../services/movies/api';
 import { selectFilters, setFilters } from '../store/filterReducer';
+import { setSkip, setTotalMovies } from '../store/movieReducer';
 import { setSortBy } from '../store/sortReducer';
 import styles from '../styles/movies.module.css';
 
@@ -22,18 +24,30 @@ const WrappedMovieTopBar = () => {
   const handleFilters = (filter: string) => {
     const filters: any = { ...selectedFilters };
 
+    console.log(filter)
+
     if (filter === userId) {
       filters['userId'] = userId;
     } else {
       filters['type'] = filter;
     }
 
+    dispatch(setSkip(0))
     dispatch(setFilters(filters));
   };
 
   const handleClear = () => {
     dispatch(setFilters({}));
   };
+
+  async function getTotalMovies() {
+    const res = await getMoviesCount();
+    dispatch(setTotalMovies(res?.data.length));
+  }
+
+  useEffect(() => {
+    getTotalMovies();
+  }, []);
 
   return (
     <>
@@ -72,6 +86,6 @@ const WrappedMovieTopBar = () => {
   );
 };
 
-const MovieTopBar = React.memo(WrappedMovieTopBar)
+const MovieTopBar = React.memo(WrappedMovieTopBar);
 
 export default MovieTopBar;
