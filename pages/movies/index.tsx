@@ -7,8 +7,7 @@ import MovieCard from '../../components/MovieCard';
 import MovieTopBar from '../../components/MovieTopBar';
 import Navbar from '../../components/Navbar';
 import SearchTopBar from '../../components/SearchTopBar';
-// import { initiateLoadMore } from '../../helper/utils';
-import { getAllMovies, getMoviesCount } from '../../services/movies/api';
+import { getAllMovies } from '../../services/movies/api';
 import { getUniqueMovies } from '../../services/movies/helper';
 
 import { selectFilters } from '../../store/filterReducer';
