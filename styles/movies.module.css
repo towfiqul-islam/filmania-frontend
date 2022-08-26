@@ -54,6 +54,7 @@
 
 .search_top_bar {
   padding: 20px 0;
+  color: var(--secondary);
 }
 
 .movie_filters {

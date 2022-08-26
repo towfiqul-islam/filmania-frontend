@@ -53,10 +53,10 @@ const Movies: NextPage = () => {
     skip,
   };
 
-  const setFavoriteMovies = (data: Movie[]) => {
-    dispatch(setMovies(movies.concat(data)));
-    dispatch(setFavorites());
-  };
+  // const setFavoriteMovies = (data: Movie[]) => {
+  //   dispatch(setMovies(movies.concat(data)));
+  //   dispatch(setFavorites());
+  // };
 
   const setUniqueMoviesWithoutConcat = (data: Movie[]) => {
     const uniqueMovies = getUniqueMovies(data);
@@ -80,7 +80,7 @@ const Movies: NextPage = () => {
       if (res?.data.length < limit) {
         setHasMore(false);
       }
-      setFavoriteMovies(res?.data);
+      // setFavoriteMovies(res?.data);
       setUniqueMoviesWithConcat(res?.data);
       dispatch(setSkip(1));
     }, 2000);
@@ -92,7 +92,7 @@ const Movies: NextPage = () => {
     setTimeout(async () => {
       const res = await getAllMovies(params);
 
-      setFavoriteMovies(res?.data);
+      // setFavoriteMovies(res?.data);
       setUniqueMoviesWithoutConcat(res?.data);
 
       runAfterDataFetch();

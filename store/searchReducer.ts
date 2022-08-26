@@ -3,7 +3,7 @@ import { Movie } from "../types/Movie";
 import { RootState } from "./store";
 
 interface SearchState {
-    searchResults: Movie[],
+    searchResults?: Movie[],
     searchKey: string
 }
 
@@ -17,8 +17,8 @@ export const searchReducer = createSlice({
     name: 'search',
     initialState,
     reducers: {
-        setSearchResults: (state, action: PayloadAction<Movie[]>) => {
-            state.searchResults = action.payload
+        setSearchResults: (state, action?: PayloadAction<Movie[] | undefined>) => {
+            state.searchResults = action?.payload
         },
         setSearchKey: (state, action: PayloadAction<string>) => {
             state.searchKey = action.payload

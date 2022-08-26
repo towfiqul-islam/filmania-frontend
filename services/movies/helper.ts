@@ -1,4 +1,5 @@
 import { HashedImdb, Movie, SearchResult } from '../../types/Movie';
+import { getUserFavorites } from './api';
 
 export const prepareSearchResults = (movies?: SearchResult[]) => {
   return movies?.map((movie?: SearchResult) => ({
@@ -7,18 +8,16 @@ export const prepareSearchResults = (movies?: SearchResult[]) => {
     imdbID: movie?.imdbID,
     type: movie?.Type,
     poster: movie?.Poster,
-  }));
+  })) as Movie[];
 };
 
 export const filterSearchResults = (
-  searchResults?: SearchResult[],
-  favorites?: SearchResult[]
+  searchResults?: Movie[],
+  favorites?: string[]
 ) => {
   if (searchResults?.length && favorites?.length) {
-    const favoritesImdb = extractImdbIDs(favorites);
-
     for (let i = 0; i < searchResults.length; i++) {
-      if (favoritesImdb.includes(searchResults[i].imdbID)) {
+      if (favorites.includes(searchResults[i].imdbID)) {
         searchResults.splice(i, 1);
       }
     }
@@ -27,14 +26,14 @@ export const filterSearchResults = (
   return searchResults;
 };
 
-const extractImdbIDs = (movies: SearchResult[]) => {
-  let imdbIds: string[] = [];
-  for (const movie of movies) {
-    imdbIds.push(movie.imdbID);
-  }
+// const extractImdbIDs = (movies: Movie[]) => {
+//   let imdbIds: string[] = [];
+//   for (const movie of movies) {
+//     imdbIds.push(movie.imdbID);
+//   }
 
-  return imdbIds;
-};
+//   return imdbIds;
+// };
 
 export const getFavorites = (movies: Movie[]) => {
   let favorites: Movie[] = [];
@@ -61,4 +60,14 @@ export const getUniqueMovies = (movies: Movie[]) => {
   }
 
   return uniqueMovies;
+};
+
+export const getFavoriteImdbs = async () => {
+  let ids = [];
+  const res = await getUserFavorites();
+  const imdbIds = res?.data;
+  for (const id of imdbIds) {
+    ids.push(id.imdbID);
+  }
+  return ids;
 };

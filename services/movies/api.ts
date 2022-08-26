@@ -54,3 +54,12 @@ export const getMoviesCount = async () => {
     console.error(err)
   }
 }
+
+export const getUserFavorites = async () => {
+  try {
+    const res = await axios_instance.get('/movies/favorites');
+    return res;
+  } catch (err) {
+    console.error(err)
+  }
+}

@@ -7,6 +7,7 @@ import { RootState } from './store';
 interface MovieState {
   movies: Movie[],
   favorites: Movie[],
+  favoriteImdbIds: string[],
   limit: number,
   skip: number,
   totalMovies: number
@@ -15,6 +16,7 @@ interface MovieState {
 const initialState: MovieState = {
     movies: [],
     favorites: [],
+    favoriteImdbIds: [],
     limit: 2,
     skip: 0,
     totalMovies: 0,
@@ -44,10 +46,13 @@ export const movieReducer = createSlice({
     setTotalMovies: (state, action: PayloadAction<number>) => {
       state.totalMovies = action.payload;
     },
+    setFavoriteImdbIds: (state, action: PayloadAction<string[]>) => {
+      state.favoriteImdbIds = action.payload
+    }
   },
 });
 
-export const { setMovies, setFavorites, setLimit, setSkip, setTotalMovies } =
+export const { setMovies, setFavorites, setLimit, setSkip, setTotalMovies, setFavoriteImdbIds } =
   movieReducer.actions;
 
 export const selectMovies = (state: RootState) => state.movie.movies;
@@ -55,5 +60,6 @@ export const selectFavorites = (state: RootState) => state.movie.favorites;
 export const selectSkip = (state: RootState) => state.movie.skip;
 export const selectLimit = (state: RootState) => state.movie.limit;
 export const selectTotalMovies = (state: RootState) => state.movie.totalMovies;
+export const selectFavoriteImdbIds = (state: RootState) => state.movie.favoriteImdbIds;
 
 export default movieReducer.reducer;

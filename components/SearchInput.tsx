@@ -7,30 +7,45 @@ import {
   setSearchKey,
   selectSearchKey,
 } from '../store/searchReducer';
-import { selectFavorites } from '../store/movieReducer';
+import {
+  selectFavoriteImdbIds,
+  selectFavorites,
+  setFavoriteImdbIds,
+} from '../store/movieReducer';
 import { searchMovie } from '../services/movies/api';
 import {
   filterSearchResults,
+  getFavoriteImdbs,
   prepareSearchResults,
 } from '../services/movies/helper';
 
 const SearchInput = () => {
   const search = useSelector(selectSearchKey);
   const favorites = useSelector(selectFavorites);
+  const favoriteImdbIds = useSelector(selectFavoriteImdbIds);
   const dispatch = useDispatch();
+
+  const setUserFavoriteImdbIds = async () => {
+    if (favoriteImdbIds.length === 0) {
+      const imdbIds = await getFavoriteImdbs();
+      dispatch(setFavoriteImdbIds(imdbIds));
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchKey = e.target.value || '';
     dispatch(setSearchKey(searchKey));
 
     if (searchKey.length >= 3) {
+      setUserFavoriteImdbIds();
+
       setTimeout(async () => {
         const res = await searchMovie(searchKey);
         const results = res?.data.Search;
         const preparedSearchResults = prepareSearchResults(results);
         const filteredSearchResults = filterSearchResults(
           preparedSearchResults,
-          favorites
+          favoriteImdbIds
         );
         const searchResults = setSearchResults(filteredSearchResults);
         dispatch(searchResults);
