@@ -27,6 +27,7 @@ import {
 import { selectSortBy } from '../../store/sortReducer';
 import styles from '../../styles/movies.module.css';
 import { Movie } from '../../types/Movie';
+import Spinner from '../../components/icons/Spinner';
 
 const Movies: NextPage = () => {
   const totalMovies = useSelector(selectTotalMovies);
@@ -71,17 +72,15 @@ const Movies: NextPage = () => {
   };
 
   const loadMore = async () => {
-    setLoading(true);
-
     setTimeout(async () => {
       const res = await getAllMovies(params);
 
       if (res?.data.length < limit) {
         setHasMore(false);
       }
-
+      setFavoriteMovies(res?.data);
       setUniqueMoviesWithConcat(res?.data);
-      runAfterDataFetch();
+      dispatch(setSkip(1));
     }, 2000);
   };
 
@@ -121,22 +120,25 @@ const Movies: NextPage = () => {
 
         <MovieTopBar />
 
-        <div id='movies_list'>
-          <InfiniteScroll
-            dataLength={movies.length}
-            next={loadMore}
-            hasMore={hasMore}
-            loader={hasMore && <Loader color='#000' />}
-            className={styles.movies_wrapper}
-          >
-            {movies &&
-              movies.length > 0 &&
-              movies.map((movie: Movie) => (
-                <MovieCard {...movie} key={movie.id} />
-              ))}
-          </InfiniteScroll>
-        </div>
-        {/* {loading && <Loader color='#000' />} */}
+        {loading ? (
+          <Spinner />
+        ) : (
+          <div id='movies_list'>
+            <InfiniteScroll
+              dataLength={movies.length}
+              next={loadMore}
+              hasMore={hasMore}
+              loader={hasMore && <Loader color='#000' />}
+              className={styles.movies_wrapper}
+            >
+              {movies &&
+                movies.length > 0 &&
+                movies.map((movie: Movie) => (
+                  <MovieCard {...movie} key={movie.id} />
+                ))}
+            </InfiniteScroll>
+          </div>
+        )}
       </div>
     </>
   );

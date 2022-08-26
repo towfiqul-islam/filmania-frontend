@@ -24,8 +24,6 @@ const WrappedMovieTopBar = () => {
   const handleFilters = (filter: string) => {
     const filters: any = { ...selectedFilters };
 
-    console.log(filter)
-
     if (filter === userId) {
       filters['userId'] = userId;
     } else {
