@@ -1,12 +1,16 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { getCurrentUser } from '../services/auth/api';
 
 
 
 export { RouteGuard };
 
-function RouteGuard({ children }: any) {
+interface Props {
+  children: ReactElement
+}
+
+function RouteGuard({ children }: Props) {
   const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
 
@@ -48,5 +52,5 @@ function RouteGuard({ children }: any) {
     }
   }
 
-  return authorized && children;
+  return authorized ? children : <></>;
 }
