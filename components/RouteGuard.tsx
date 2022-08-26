@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { getCurrentUser } from '../services/auth/api';
+
+
 
 export { RouteGuard };
 
@@ -29,7 +31,7 @@ function RouteGuard({ children }: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function authCheck(url: any) {
+  async function authCheck(url: string) {
     // redirect to login page if accessing a private page and not logged in
 
     const publicPaths = ['/login', '/register'];

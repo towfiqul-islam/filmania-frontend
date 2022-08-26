@@ -1,11 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Filters } from "../types/Movie";
 import { RootState } from "./store";
+
+interface FilterState {
+    filters: Filters | {}
+}
+
+const initialState: FilterState = {
+    filters: {}
+}
 
 export const filterReducer = createSlice({
     name: 'filter',
-    initialState: {
-        filters: {}
-    },
+    initialState,
     reducers: {
         setFilters: (state, action) => {
             state.filters = action.payload

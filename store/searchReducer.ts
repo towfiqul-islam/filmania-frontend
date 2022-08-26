@@ -1,18 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Movie } from "../types/Movie";
 import { RootState } from "./store";
+
+interface SearchState {
+    searchResults: Movie[],
+    searchKey: string
+}
+
+const initialState: SearchState = {
+    searchResults: [],
+    searchKey: ''
+}
 
 
 export const searchReducer = createSlice({
     name: 'search',
-    initialState: {
-        searchResults: [],
-        searchKey: ''
-    },
+    initialState,
     reducers: {
-        setSearchResults: (state, action) => {
+        setSearchResults: (state, action: PayloadAction<Movie[]>) => {
             state.searchResults = action.payload
         },
-        setSearchKey: (state, action) => {
+        setSearchKey: (state, action: PayloadAction<string>) => {
             state.searchKey = action.payload
         }
     }

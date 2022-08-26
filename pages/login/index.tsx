@@ -17,7 +17,7 @@ const Login: NextPage = () => {
   const [showError, setShowError] = useState(false);
   const { email, password } = login;
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLogin({ ...login, [e.target.name]: e.target.value });
   };
 
@@ -26,7 +26,7 @@ const Login: NextPage = () => {
     setLoading(true);
     const res = await loginUser(login);
     if (res.status === 201) {
-      const returnUrl: any = router.query.returnUrl || '/movies';
+      const returnUrl: string = router.query.returnUrl as string || '/movies';
       setLoading(false);
       router.push(returnUrl);
     } else {

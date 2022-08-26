@@ -26,7 +26,7 @@ import {
 } from '../../store/searchReducer';
 import { selectSortBy } from '../../store/sortReducer';
 import styles from '../../styles/movies.module.css';
-import { Movie } from '../../types/Movie';
+import { Movie, QueryParams } from '../../types/Movie';
 import Spinner from '../../components/icons/Spinner';
 import { selectCurrentTheme } from '../../store/themeReducer';
 
@@ -46,24 +46,24 @@ const Movies: NextPage = () => {
   const limit = useSelector(selectLimit);
   const skip = useSelector(selectSkip);
 
-  const params: any = {
+  const params: QueryParams = {
     ...filters,
     sortBy,
     limit,
     skip,
   };
 
-  const setFavoriteMovies = (data: any) => {
+  const setFavoriteMovies = (data: Movie[]) => {
     dispatch(setMovies(movies.concat(data)));
     dispatch(setFavorites());
   };
 
-  const setUniqueMoviesWithoutConcat = (data: any) => {
+  const setUniqueMoviesWithoutConcat = (data: Movie[]) => {
     const uniqueMovies = getUniqueMovies(data);
     dispatch(setMovies(uniqueMovies));
   };
 
-  const setUniqueMoviesWithConcat = (data: any) => {
+  const setUniqueMoviesWithConcat = (data: Movie[]) => {
     const uniqueMovies = getUniqueMovies(movies.concat(data));
     dispatch(setMovies(uniqueMovies));
   };

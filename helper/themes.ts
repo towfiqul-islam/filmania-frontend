@@ -1,9 +1,11 @@
-export const lightTheme = {
+import { CssVariables } from "../types/Global";
+
+export const lightTheme: CssVariables = {
   '--primary': '#fff',
   '--secondary': '#000',
 };
 
-export const darkTheme = {
+export const darkTheme: CssVariables = {
   '--primary': '#000',
   '--secondary': '#fff',
 };
@@ -23,15 +25,15 @@ export const changeTheme = (theme: string) => {
   }
 };
 
-const setThemeProperty = (keys: any, values: any) => {
+const setThemeProperty = (keys: string[], values: string[]) => {
   for (let i = 0; i < keys.length; i++) {
     document.documentElement.style.setProperty(keys[i], values[i]);
   }
 };
 
-const separateKeyValues = (theme: any) => {
-  const keys = Object.keys(theme);
-  const values = Object.values(theme);
+const separateKeyValues = (theme: Object) => {
+  const keys: string[] = Object.keys(theme);
+  const values: string[] = Object.values(theme);
 
   return {
     keys,

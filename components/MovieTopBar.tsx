@@ -15,14 +15,14 @@ const WrappedMovieTopBar = () => {
   const isFilterSelected = (filter: string) =>
     Object.values(selectedFilters).includes(filter);
 
-  const handleSort = (e: any) => {
+  const handleSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setSortBy(e.target.value));
     dispatch(setSkip(0))
     dispatch(setFilters({}))
   };
 
   const handleFilters = (filter: string) => {
-    const filters: any = { ...selectedFilters };
+    const filters = { ...selectedFilters };
 
     if (filter === userId) {
       filters['userId'] = userId;
