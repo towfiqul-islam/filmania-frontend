@@ -1,8 +1,14 @@
+:root {
+    --primary: #fff;
+    --secondary: #000;
+}
+
 body {
     font-family: 'Poppins', 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
     'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: var(--primary);
 }
 
 h1, h2, h3, h4, h5, h6, p {

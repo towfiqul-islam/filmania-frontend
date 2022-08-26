@@ -11,15 +11,15 @@
 
 .movie_card {
     position: relative;
-    background: black;
-    color: white;
+    background: var(--primary);
+    color: var(--secondary);
 }
 
 .movie_card .add_button {
-    background-color: rgba(255, 255, 255, .32);
+    background-color: var(--primary);
     padding: 10px 6px;
     position: absolute;
-    color: white;
+    color: var(--secondary);
     font-size: 20px;
     z-index: 10;
     cursor: pointer;
@@ -28,7 +28,7 @@
 .movie_card img {
   width: 100px;
   height: 150px;
-  opacity: 0.5;
+  /* opacity: 0.5; */
 
 }
 
@@ -44,6 +44,14 @@
   padding: 20px 0;
 }
 
+.movies_top_bar h3 {
+  color: var(--secondary)
+}
+
+.movies_top_bar label {
+  color: var(--secondary)
+}
+
 .search_top_bar {
   padding: 20px 0;
 }
@@ -56,21 +64,23 @@
   padding: 4px 12px;
   margin-right: 10px;
   border-radius: 25px;
-  border: 1px solid black;
+  border: 1px solid var(--secondary);
   cursor: pointer;
+  background-color: var(--primary);
+  color: var(--secondary)
 }
 
 .movie_filters_btn_selected {
   padding: 4px 12px;
   margin-right: 10px;
   border-radius: 25px;
-  background-color: #000;
-  color: #fff;
+  background-color: var(--secondary);
+  color: var(--primary);
   cursor: pointer;
 }
 
 .filter_clear_btn {
   text-decoration: underline;
-  color: #333;
+  color: var(--secondary);
   cursor: pointer;
 }

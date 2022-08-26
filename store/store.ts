@@ -3,13 +3,15 @@ import filterReducer from './filterReducer'
 import movieReducer from './movieReducer'
 import searchReducer from './searchReducer'
 import sortReducer from './sortReducer'
+import themeReducer from './themeReducer'
 
 export const store = configureStore({
   reducer: {
     search: searchReducer,
     filter: filterReducer,
     sort: sortReducer,
-    movie: movieReducer
+    movie: movieReducer,
+    theme: themeReducer
   },
 })
 

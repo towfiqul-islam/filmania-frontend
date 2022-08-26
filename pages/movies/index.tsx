@@ -28,8 +28,10 @@ import { selectSortBy } from '../../store/sortReducer';
 import styles from '../../styles/movies.module.css';
 import { Movie } from '../../types/Movie';
 import Spinner from '../../components/icons/Spinner';
+import { selectCurrentTheme } from '../../store/themeReducer';
 
 const Movies: NextPage = () => {
+  const currentTheme = useSelector(selectCurrentTheme)
   const totalMovies = useSelector(selectTotalMovies);
   const dispatch = useDispatch();
   const movies = useSelector(selectMovies);
@@ -128,7 +130,7 @@ const Movies: NextPage = () => {
               dataLength={movies.length}
               next={loadMore}
               hasMore={hasMore}
-              loader={hasMore && <Loader color='#000' />}
+              loader={hasMore && <Loader color={currentTheme === 'light' ? '#000' : '#fff'} />}
               className={styles.movies_wrapper}
             >
               {movies &&

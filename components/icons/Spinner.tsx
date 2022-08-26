@@ -1,12 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectCurrentTheme } from '../../store/themeReducer';
 
 const Spinner = () => {
+  const currentTheme = useSelector(selectCurrentTheme);
   return (
     <>
       <svg
         style={{
           margin: 'auto',
-          background: 'rgb(255, 255, 255)',
+          background: 'none',
           display: 'block',
           shapeRendering: 'auto',
         }}
@@ -17,7 +20,7 @@ const Spinner = () => {
       >
         <path
           d='M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50'
-          fill='#000'
+          fill={currentTheme === 'light' ? '#000' : '#fff'}
           stroke='none'
         >
           <animateTransform
