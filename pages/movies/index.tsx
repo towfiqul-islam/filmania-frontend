@@ -33,6 +33,7 @@ const Movies: NextPage = () => {
   const dispatch = useDispatch();
   const movies = useSelector(selectMovies);
   const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
   const searchKey = useSelector(selectSearchKey);
   const searchResults = useSelector(selectSearchResults);
@@ -64,7 +65,7 @@ const Movies: NextPage = () => {
     dispatch(setMovies(uniqueMovies));
   };
 
-  const afterDataFetchLogic = () => {
+  const runAfterDataFetch = () => {
     setLoading(false);
     dispatch(setSkip(1));
   };
@@ -74,9 +75,13 @@ const Movies: NextPage = () => {
 
     setTimeout(async () => {
       const res = await getAllMovies(params);
-      setUniqueMoviesWithConcat(res?.data);
 
-      afterDataFetchLogic();
+      if (res?.data.length < limit) {
+        setHasMore(false);
+      }
+
+      setUniqueMoviesWithConcat(res?.data);
+      runAfterDataFetch();
     }, 2000);
   };
 
@@ -89,12 +94,13 @@ const Movies: NextPage = () => {
       setFavoriteMovies(res?.data);
       setUniqueMoviesWithoutConcat(res?.data);
 
-      afterDataFetchLogic();
+      runAfterDataFetch();
     }, 2000);
   };
 
   useEffect(() => {
     getMovies();
+    setHasMore(true);
   }, [filters, sortBy, totalMovies]);
   return (
     <>
@@ -119,8 +125,8 @@ const Movies: NextPage = () => {
           <InfiniteScroll
             dataLength={movies.length}
             next={loadMore}
-            hasMore={movies.length < totalMovies}
-            loader={<Loader color='#000' />}
+            hasMore={hasMore}
+            loader={hasMore && <Loader color='#000' />}
             className={styles.movies_wrapper}
           >
             {movies &&

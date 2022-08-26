@@ -15,10 +15,10 @@ const WrappedMovieTopBar = () => {
   const isFilterSelected = (filter: string) =>
     Object.values(selectedFilters).includes(filter);
 
-  // console.log({ selectedFilters: Object.values(selectedFilters) });
-
   const handleSort = (e: any) => {
     dispatch(setSortBy(e.target.value));
+    dispatch(setSkip(0))
+    dispatch(setFilters({}))
   };
 
   const handleFilters = (filter: string) => {
@@ -37,6 +37,7 @@ const WrappedMovieTopBar = () => {
   };
 
   const handleClear = () => {
+    dispatch(setSkip(0))
     dispatch(setFilters({}));
   };
 

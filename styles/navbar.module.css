@@ -1,5 +1,5 @@
 .nav_wrapper {
-    background-color: gray;
+    background-color: rgb(49, 49, 49);
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -59,4 +59,8 @@
 
 .profile_dropdown li:hover {
     background-color: #000
+}
+
+.logo h3 {
+    color: #fff;
 }
