@@ -17,7 +17,7 @@ const initialState: MovieState = {
     movies: [],
     favorites: [],
     favoriteImdbIds: [],
-    limit: 2,
+    limit: 10,
     skip: 0,
     totalMovies: 0,
 }

@@ -2,7 +2,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+## Installation
+
+```bash
+$ npm install
+```
+
+then, run the development server:
 
 ```bash
 npm run dev
@@ -11,24 +17,29 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+By the way, make sure backend is also running.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Login instructions
+email: test@test.com
+password: 123
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+or register new user
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## App logic
+By default you will see all the movies that are added by other users.
+Click the favorites filter to only see your movies or series
 
-## Learn More
+## How does search work?
+I used a free thrid party API for searching movies.
 
-To learn more about Next.js, take a look at the following resources:
+## Handling pagination
+I used infinite loader for the pagination. Movies will be loaded as user scrolls.
+Please set the default limit in movieReducer to 2 or 3 (currently 10) to check the functionality without adding too many movies.
+Also make sure your browser window small enough, so that scrollbar shows up. Otherwise scroll event won't get triggered.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## How to add movies
+1. Search the movie you want to add
+2. If it's not already in your favorites list, then you will see the plus icon.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Some additional notes
+I didn't hide some of the sensitive info (Like API key, secret, Port, DB credentials) to env for your sake. In a real world scenario they would have been hidden.
