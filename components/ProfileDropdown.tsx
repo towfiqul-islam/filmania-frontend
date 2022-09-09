@@ -31,6 +31,8 @@ const ProfileDropdown = () => {
     } else if (currentTheme === 'dark') {
       dispatch(toggleTheme('light'))
     }
+
+    toggleDropdown()
   }
 
   useEffect(() => {

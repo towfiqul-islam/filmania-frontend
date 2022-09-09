@@ -43,3 +43,7 @@ Also make sure your browser window small enough, so that scrollbar shows up. Oth
 
 ## Some additional notes
 I didn't hide some of the sensitive info (Like API key, secret, Port, DB credentials) to env for your sake. In a real world scenario they would have been hidden.
+
+## Some features that can be improved
+1. I have added theming, for now it's simple with black and white options. Can be improved with better color palette.
+2. Filtering, and sorting can be more sophisticated
